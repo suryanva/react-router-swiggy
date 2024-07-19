@@ -14,8 +14,8 @@ const Body = () => {
   if (loading) {
     return (
       <div className="body">
-        <div className="Restaurant-Container">
-          {Array(10)
+        <div className=" flex flex-wrap gap-4">
+          {Array(16)
             .fill(0)
             .map((_, index) => (
               <Shimmer key={index} />
@@ -26,17 +26,18 @@ const Body = () => {
   }
   return (
     <div className="body">
-      <div className="filter">
+      <div className="filter flex space-x-4">
         <div className="search">
           <input
             type="text"
-            className="search-box"
+            className="border border-solid border-black"
             value={searchText}
             onChange={(e) => {
               setSearchText(e.target.value);
             }}
           />
           <button
+            className="px-4 py-2 bg-green-200 m-4 rounded-lg"
             onClick={() => {
               const filteres = defaultRestaurant.filter((restaurant) =>
                 restaurant?.info?.name
@@ -49,27 +50,31 @@ const Body = () => {
             Search
           </button>
         </div>
-        <button
-          className="filter-btn"
-          onClick={() => {
-            const newList = defaultRestaurant.filter(
-              (restaurant) => restaurant?.info?.avgRating >= 4.5
-            );
-            setRestaurantList(newList);
-          }}
-        >
-          Top Rated Restaurants
-        </button>
-        <button
-          className="filter-btn"
-          onClick={() => {
-            setRestaurantList(defaultRestaurant);
-          }}
-        >
-          Reset
-        </button>
+        <div className="my-4">
+          <button
+            className="px-4 py-2 bg-gray-100 rounded-lg"
+            onClick={() => {
+              const newList = defaultRestaurant.filter(
+                (restaurant) => restaurant?.info?.avgRating >= 4.5
+              );
+              setRestaurantList(newList);
+            }}
+          >
+            Top Rated Restaurants
+          </button>
+        </div>
+        <div className="my-4">
+          <button
+            className="filter-btn px-4 py-2  bg-gray-100 rounded-lg"
+            onClick={() => {
+              setRestaurantList(defaultRestaurant);
+            }}
+          >
+            Reset
+          </button>
+        </div>
       </div>
-      <div className="Restaurant-Container">
+      <div className="flex flex-wrap gap-4">
         {restaurantList.map((restaurant) => (
           <Link
             to={"/restaurants/" + restaurant?.info?.id}

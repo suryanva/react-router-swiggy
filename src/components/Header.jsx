@@ -6,12 +6,12 @@ import useOnlineStatus from "../../utils/useOnlineStatus";
 const Header = () => {
   const [authState, setAuthState] = useState("Login");
   return (
-    <div className="header">
+    <div className="flex justify-between items-center  shadow-lg mb-2">
       <div className="logo-container">
-        <img className="logo" src={LOGO_URL} alt="logo" />
+        <img className="w-15 h-32" src={LOGO_URL} alt="logo" />
       </div>
       <div className="nav-items">
-        <ul>
+        <ul className="flex space-x-10">
           <li>Online Status: {useOnlineStatus() ? "O" : "N"}</li>
           <li>
             <Link to="/">Home</Link>

@@ -31,7 +31,7 @@ const useRestaurantList = () => {
     }
   };
 
-  return { restaurantList, defaultRestaurant, loading };
+  return { restaurantList, defaultRestaurant, loading, setRestaurantList };
 };
 
 export default useRestaurantList;

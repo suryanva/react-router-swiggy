@@ -8,7 +8,8 @@ import useRestaurantList from "../../utils/useRestaurantList.js";
 const Body = () => {
   const [searchText, setSearchText] = useState("");
 
-  const { restaurantList, defaultRestaurant, loading } = useRestaurantList();
+  const { restaurantList, defaultRestaurant, loading, setRestaurantList } =
+    useRestaurantList();
 
   if (loading) {
     return (

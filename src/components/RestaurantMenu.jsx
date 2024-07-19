@@ -1,34 +1,10 @@
-import { useEffect, useState } from "react";
-import { SWIGGY_MENU_URL } from "../../utils/constants";
 import RestaurantMenuList from "./RestaurantMenuList";
 import { useParams } from "react-router-dom";
+import useRestaurantMenu from "../../utils/useRestaurantMenu";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
-  const [loading, setLoading] = useState(true);
-  const [resInfo, setResInfo] = useState("");
-  const [resItems, setResItems] = useState([]);
-  useEffect(() => {
-    fetchMenu();
-  }, []);
-
-  const fetchMenu = async () => {
-    try {
-      const response = await fetch(SWIGGY_MENU_URL + resId);
-      const json = await response.json();
-      const fetchedResInfo = json?.data?.cards[2]?.card?.card?.info;
-      const fetchedResItems =
-        json?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card
-          ?.card?.itemCards || [];
-      setResInfo(fetchedResInfo);
-      setResItems(fetchedResItems);
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-      console.error("Error fetching menu:", error);
-    }
-  };
-
+  const { loading, resInfo, resItems } = useRestaurantMenu(resId);
   if (loading) {
     // Show shimmer effect while loading
     return (

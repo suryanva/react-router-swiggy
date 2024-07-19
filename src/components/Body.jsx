@@ -1,38 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import RestaurantCard from "./RestaurantCard.jsx";
-import { SWIGGY_URL } from "../../utils/constants";
 import Shimmer from "./Shimmer.jsx";
 import { Link } from "react-router-dom";
+import useRestaurantList from "../../utils/useRestaurantList.js";
 
 // Not using key(not acceptable) <<< index as key <<<<<<<  unique id (best practices)
 const Body = () => {
-  const [restaurantList, setRestaurantList] = useState([]);
-  const [defaultRestaurant, setDefaultRestaurant] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [searchText, setSearchText] = useState("");
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    try {
-      const response = await fetch(SWIGGY_URL);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const json = await response.json();
-
-      const restaurantListFromWeb =
-        json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
-          ?.restaurants;
-      setRestaurantList(restaurantListFromWeb);
-      setDefaultRestaurant(restaurantListFromWeb);
-      setLoading(false);
-    } catch (error) {
-      console.error("Failed to fetch data:", error);
-    }
-  };
+  const { restaurantList, defaultRestaurant, loading } = useRestaurantList();
 
   if (loading) {
     return (

@@ -26,13 +26,18 @@ const RestaurantMenu = () => {
   }
 
   return (
-    <div className="m-4 p-4 bg-amber-200 rounded-lg shadow-lg">
+    <div className="m-4 p-4  rounded-lg shadow-lg">
       <h1 className="text-2xl font-bold mb-4">{resInfo?.name}</h1>
-      <p className="text-gray-600 mb-6">{resInfo?.costForTwoMessage}</p>
+      <p className="text-gray-600 mb-6">
+        Cost For Two: {resInfo?.costForTwoMessage}
+      </p>
       <h2 className="text-xl font-semibold mb-4">Menu</h2>
-      <ul className="space-y-4">
+      <ul className="space-y-4 ">
         {resItems.map((restaurantMenuItems) => (
-          <li key={restaurantMenuItems?.card?.info?.id}>
+          <li
+            className="bg-amber-200"
+            key={restaurantMenuItems?.card?.info?.id}
+          >
             <RestaurantMenuList props={restaurantMenuItems} />
           </li>
         ))}

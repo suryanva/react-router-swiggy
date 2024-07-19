@@ -11,7 +11,7 @@ const Header = () => {
         <img className="w-15 h-32" src={LOGO_URL} alt="logo" />
       </div>
       <div className="nav-items">
-        <ul className="flex space-x-10">
+        <ul className="flex space-x-10 justify-center items-center">
           <li>Online Status: {useOnlineStatus() ? "O" : "N"}</li>
           <li>
             <Link to="/">Home</Link>
@@ -28,11 +28,17 @@ const Header = () => {
           <li>Cart</li>
           <li>
             <button
-              className="login"
+              className={`py-2 px-4 rounded-lg font-semibold text-white transition-transform duration-300 ease-in-out ${
+                authState === "Login"
+                  ? "bg-blue-500 hover:bg-blue-600"
+                  : "bg-red-500 hover:bg-red-600"
+              }`}
               onClick={() => {
                 if (authState === "Login") {
                   setAuthState("Logout");
-                } else setAuthState("Login");
+                } else {
+                  setAuthState("Login");
+                }
               }}
             >
               {authState}

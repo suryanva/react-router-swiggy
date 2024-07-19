@@ -1,5 +1,5 @@
 import { useState } from "react";
-import RestaurantCard from "./RestaurantCard.jsx";
+import RestaurantCard, { withHighRatings } from "./RestaurantCard.jsx";
 import Shimmer from "./Shimmer.jsx";
 import { Link } from "react-router-dom";
 import useRestaurantList from "../../utils/useRestaurantList.js";
@@ -10,6 +10,8 @@ const Body = () => {
 
   const { restaurantList, defaultRestaurant, loading, setRestaurantList } =
     useRestaurantList();
+
+  const HighRatedRestaurantCards = withHighRatings(RestaurantCard);
 
   if (loading) {
     return (
@@ -80,7 +82,11 @@ const Body = () => {
             to={"/restaurants/" + restaurant?.info?.id}
             key={restaurant?.info?.id}
           >
-            <RestaurantCard resData={restaurant} />
+            {restaurant?.info?.avgRating > 4.5 ? (
+              <HighRatedRestaurantCards resData={restaurant} />
+            ) : (
+              <RestaurantCard resData={restaurant} />
+            )}
           </Link>
         ))}
       </div>

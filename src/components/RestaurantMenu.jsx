@@ -7,6 +7,7 @@ const RestaurantMenu = () => {
   const { resId } = useParams();
   const { loading, resInfo, filteredCategories } = useRestaurantMenu(resId);
   const [showIndex, setShowIndex] = useState(null);
+
   if (loading) {
     // Show shimmer effect while loading
     return (
@@ -26,19 +27,27 @@ const RestaurantMenu = () => {
     );
   }
 
+  const handleSetShowIndex = (index) => {
+    if (index === showIndex) {
+      setShowIndex(null); // Close the accordion if it's already open
+    } else {
+      setShowIndex(index); // Open the clicked accordion
+    }
+  };
+
   return (
     <div className="text-center">
       <h1 className="text-2xl font-bold mb-4">{resInfo?.name}</h1>
       <p className="font-bold text-lg">
-        {resInfo?.cuisines.join(",")} {resInfo?.costForTwoMessage}
+        {resInfo?.cuisines.join(", ")} {resInfo?.costForTwoMessage}
       </p>
-      <div className="w-6/12 mx-auto  ">
+      <div className="w-6/12 mx-auto">
         {filteredCategories.map((category, index) => (
           <RestaurantCategory
             key={category.card.card.itemCards[0].card.info.id}
             data={category?.card?.card}
-            showItems={index === showIndex ? true : false}
-            setShowIndex={() => setShowIndex(index)}
+            showItems={index === showIndex}
+            setShowIndex={() => handleSetShowIndex(index)}
           />
         ))}
       </div>

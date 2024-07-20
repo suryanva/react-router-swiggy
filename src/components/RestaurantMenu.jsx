@@ -1,10 +1,12 @@
 import { useParams } from "react-router-dom";
 import useRestaurantMenu from "../../utils/useRestaurantMenu";
 import RestaurantCategory from "./RestaurantCategory";
+import { useState } from "react";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
   const { loading, resInfo, filteredCategories } = useRestaurantMenu(resId);
+  const { showIndex, setShowIndex } = useState(0);
   if (loading) {
     // Show shimmer effect while loading
     return (
@@ -31,10 +33,12 @@ const RestaurantMenu = () => {
         {resInfo?.cuisines.join(",")} {resInfo?.costForTwoMessage}
       </p>
       <div className="w-6/12 mx-auto  ">
-        {filteredCategories.map((category) => (
+        {filteredCategories.map((category, index) => (
           <RestaurantCategory
             key={category.card.card.itemCards[0].card.info.id}
             data={category?.card?.card}
+            showItems={index === showIndex ? true : false}
+            setShowIndex={() => setShowIndex(index)}
           />
         ))}
       </div>

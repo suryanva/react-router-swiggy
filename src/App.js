@@ -10,16 +10,15 @@ import RestaurantMenu from "./components/RestaurantMenu.jsx";
 import UserContext from "../utils/UserContext.js";
 
 const Grocery = lazy(() => import("./components/Grocery.jsx"));
-const [userName, setUserName] = useState("");
-
-useEffect(() => {
-  const data = "Surya";
-  setUserName(data);
-}, []);
 
 const App = () => {
+  const [userName, setUserName] = useState();
+
+  useEffect(() => {
+    setUserName("Surya");
+  }, []);
   return (
-    <UserContext.Provider value={(loggedInUser = userName)}>
+    <UserContext.Provider value={{ loggedInUser: userName }}>
       <div>
         <Header />
         <Outlet />

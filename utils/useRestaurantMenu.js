@@ -4,7 +4,7 @@ import { SWIGGY_MENU_URL } from "./constants";
 const useRestaurantMenu = (resId) => {
   const [loading, setLoading] = useState(true);
   const [resInfo, setResInfo] = useState(null);
-  const [resItems, setResItems] = useState([]);
+  const [filteredCategories, setFilteredCategories] = useState([]);
 
   useEffect(() => {
     const fetchMenu = async () => {
@@ -12,12 +12,14 @@ const useRestaurantMenu = (resId) => {
         const response = await fetch(SWIGGY_MENU_URL + resId);
         const json = await response.json();
         const fetchedResInfo = json?.data?.cards[2]?.card?.card?.info;
-        const fetchedResItems =
-          json?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]
-            ?.card?.card?.itemCards || [];
-
+        const categories =
+          json?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
+            (c) =>
+              c?.card?.card["@type"] ==
+              "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+          );
+        setFilteredCategories(categories);
         setResInfo(fetchedResInfo);
-        setResItems(fetchedResItems);
       } catch (error) {
         console.error("Error fetching menu:", error);
       } finally {
@@ -30,7 +32,7 @@ const useRestaurantMenu = (resId) => {
     }
   }, [resId]);
 
-  return { loading, resInfo, resItems };
+  return { loading, resInfo, filteredCategories };
 };
 
 export default useRestaurantMenu;

@@ -17,11 +17,11 @@ const useRestaurantList = () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const json = await response.json();
-      console.log(json);
 
       const restaurantListFromWeb =
         json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
           ?.restaurants;
+      console.log(json);
       setRestaurantList(restaurantListFromWeb);
       setDefaultRestaurant(restaurantListFromWeb);
     } catch (error) {

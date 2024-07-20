@@ -1,11 +1,10 @@
-import RestaurantMenuList from "./RestaurantMenuList";
 import { useParams } from "react-router-dom";
 import useRestaurantMenu from "../../utils/useRestaurantMenu";
+import RestaurantCategory from "./RestaurantCategory";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
-  const { loading, resInfo, resItems } = useRestaurantMenu(resId);
-
+  const { loading, resInfo, filteredCategories } = useRestaurantMenu(resId);
   if (loading) {
     // Show shimmer effect while loading
     return (
@@ -26,22 +25,17 @@ const RestaurantMenu = () => {
   }
 
   return (
-    <div className="m-4 p-4  rounded-lg shadow-lg">
+    <div className="text-center">
       <h1 className="text-2xl font-bold mb-4">{resInfo?.name}</h1>
-      <p className="text-gray-600 mb-6">
-        Cost For Two: {resInfo?.costForTwoMessage}
+      <p className="font-bold text-lg">
+        {resInfo?.cuisines.join(",")} {resInfo?.costForTwoMessage}
       </p>
-      <h2 className="text-xl font-semibold mb-4">Menu</h2>
-      <ul className="space-y-4 ">
-        {resItems.map((restaurantMenuItems) => (
-          <li
-            className="bg-amber-200"
-            key={restaurantMenuItems?.card?.info?.id}
-          >
-            <RestaurantMenuList props={restaurantMenuItems} />
-          </li>
-        ))}
-      </ul>
+      {filteredCategories.map((category) => (
+        <RestaurantCategory
+          key={category.card.card.itemCards[0].card.info.id}
+          data={category?.card?.card}
+        />
+      ))}
     </div>
   );
 };

@@ -30,12 +30,14 @@ const RestaurantMenu = () => {
       <p className="font-bold text-lg">
         {resInfo?.cuisines.join(",")} {resInfo?.costForTwoMessage}
       </p>
-      {filteredCategories.map((category) => (
-        <RestaurantCategory
-          key={category.card.card.itemCards[0].card.info.id}
-          data={category?.card?.card}
-        />
-      ))}
+      <div className="w-6/12 mx-auto  ">
+        {filteredCategories.map((category) => (
+          <RestaurantCategory
+            key={category.card.card.itemCards[0].card.info.id}
+            data={category?.card?.card}
+          />
+        ))}
+      </div>
     </div>
   );
 };

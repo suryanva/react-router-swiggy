@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 const Header = () => {
   const [authState, setAuthState] = useState("Login");
   const { loggedInUser } = useContext(UserContext);
+
   //Selector
   const cartItems = useSelector((store) => store.cart.items);
   return (
@@ -31,7 +32,7 @@ const Header = () => {
             <Link to="/grocery">Grocery</Link>
           </li>
           <li className="px-4 fojt-bold text-xl">
-            Cart({cartItems.length} items)
+            <Link to="/cart">Cart({cartItems.length} items)</Link>
           </li>
           <li>
             <button

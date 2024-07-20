@@ -6,7 +6,7 @@ import { useState } from "react";
 const RestaurantMenu = () => {
   const { resId } = useParams();
   const { loading, resInfo, filteredCategories } = useRestaurantMenu(resId);
-  const { showIndex, setShowIndex } = useState(0);
+  const [showIndex, setShowIndex] = useState(null);
   if (loading) {
     // Show shimmer effect while loading
     return (

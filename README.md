@@ -20,3 +20,5 @@
 -Installed Babel dependencies
 -Configure Babel
 -Configure Parcel Config file to disable babel transpilation
+--Jest configuration - npx jest --init
+--Install JSDOM library for versions above 28

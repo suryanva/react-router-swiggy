@@ -18,7 +18,7 @@ const Header = () => {
       </div>
       <div className="nav-items">
         <ul className="flex space-x-10 justify-center items-center">
-          <li>Online Status: {useOnlineStatus() ? "O" : "N"}</li>
+          <li>Online Status: {useOnlineStatus() ? "✅" : "❌"}</li>
           <li>
             <Link to="/">Home</Link>
           </li>

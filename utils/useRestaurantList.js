@@ -19,7 +19,7 @@ const useRestaurantList = () => {
       const json = await response.json();
 
       const restaurantListFromWeb =
-        json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+        json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
           ?.restaurants;
       console.log(json);
       setRestaurantList(restaurantListFromWeb);

@@ -77,7 +77,7 @@ const Body = () => {
         </div>
       </div>
       <div className="flex flex-wrap gap-4">
-        {restaurantList.map((restaurant) => (
+        {restaurantList?.map((restaurant) => (
           <Link
             to={"/restaurants/" + restaurant?.info?.id}
             key={restaurant?.info?.id}

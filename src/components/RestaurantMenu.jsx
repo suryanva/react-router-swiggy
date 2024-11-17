@@ -42,7 +42,7 @@ const RestaurantMenu = () => {
         {resInfo?.cuisines.join(", ")} {resInfo?.costForTwoMessage}
       </p>
       <div className="w-6/12 mx-auto">
-        {filteredCategories.map((category, index) => (
+        {filteredCategories?.map((category, index) => (
           <RestaurantCategory
             key={category.card.card.itemCards[0].card.info.id}
             data={category?.card?.card}

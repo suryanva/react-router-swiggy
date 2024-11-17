@@ -11,9 +11,10 @@ const useRestaurantMenu = (resId) => {
       try {
         const response = await fetch(SWIGGY_MENU_URL + resId);
         const json = await response.json();
+        console.log(json);
         const fetchedResInfo = json?.data?.cards[2]?.card?.card?.info;
         const categories =
-          json?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
+          json?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
             (c) =>
               c?.card?.card["@type"] ==
               "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"

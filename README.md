@@ -22,6 +22,6 @@
 -Configure Parcel Config file to disable babel transpilation
 --Jest configuration - npx jest --init
 --Install JSDOM library for versions above 28
--Add @babel/preset-react - to make JSX work in the test case
+-Add @babel/preset-react - to make JSX work in the test cases
 -Include @babel/preset-react in babel config
 -npm i -D @testing-library/jest-dom

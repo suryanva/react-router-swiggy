@@ -11,7 +11,7 @@ export const LOGO_URL =
   "https://www.logodesign.net/logo/smoking-burger-with-lettuce-3624ld.png";
 
 export const SWIGGY_MENU_URL =
-  "/api/proxy?url=https%3A%2F%2Fwww.swiggy.com%2Fdapi%2Fmenu%2Fpl%3Fpage-type%3DREGULAR_MENU%26complete-menu%3Dtrue%26lat%3D17.6868159%26lng%3D83.2184815%26restaurantId%3D";
+  "/api/proxy?url=https%3A%2F%2Fwww.swiggy.com%2Fmapi%2Fmenu%2Fpl%3Fpage-type%3DREGULAR_MENU%26complete-menu%3Dtrue%26lat%3D17.6868159%26lng%3D83.2184815%26restaurantId%3D";
 
 //https://www.swiggy.com/mapi/homepage/getCards?lat=17.6868159&lng=83.2184815
 

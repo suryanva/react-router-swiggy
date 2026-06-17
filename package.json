@@ -5,7 +5,9 @@
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html",
-    "test": "jest"
+    "postbuild": "cp _headers dist/_headers",
+    "test": "jest",
+    "watch-test": "jest --watch"
   },
   "author": "",
   "license": "ISC",

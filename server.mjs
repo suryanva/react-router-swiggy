@@ -12,16 +12,19 @@ app.use((_req, res, next) => {
   next();
 });
 
-app.use((req, _res, next) => {
-  console.log(`${req.method} ${req.url}`);
-  next();
-});
-
 app.get("/api/proxy", async (req, res) => {
   const targetUrl = req.query.url;
   if (!targetUrl) return res.status(400).json({ error: "Missing url" });
   try {
-    const response = await fetch(targetUrl);
+    const response = await fetch(targetUrl, {
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+        Accept: "application/json",
+        Referer: "https://www.swiggy.com/",
+        Origin: "https://www.swiggy.com",
+      },
+    });
     if (!response.ok)
       return res.status(response.status).json({ error: `Upstream ${response.status}` });
     const data = await response.json();
@@ -29,18 +32,6 @@ app.get("/api/proxy", async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-});
-
-app.get("/api/check", (_req, res) => {
-  const distPath = path.join(__dirname, "dist");
-  const files = fs.existsSync(distPath) ? fs.readdirSync(distPath) : [];
-  res.json({
-    cwd: process.cwd(),
-    dirname: __dirname,
-    distExists: fs.existsSync(distPath),
-    distFiles: files,
-    nodeVersion: process.version,
-  });
 });
 
 app.use(express.static(path.join(__dirname, "dist")));

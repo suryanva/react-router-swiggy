@@ -25,8 +25,11 @@ app.get("/api/proxy", async (req, res) => {
         Origin: "https://www.swiggy.com",
       },
     });
-    if (!response.ok)
-      return res.status(response.status).json({ error: `Upstream ${response.status}` });
+    if (!response.ok) {
+      const text = await response.text();
+      console.error(`Upstream ${response.status}:`, text.slice(0, 500));
+      return res.status(response.status).json({ error: `Upstream ${response.status}`, detail: text.slice(0, 200) });
+    }
     const data = await response.json();
     res.json(data);
   } catch (err) {

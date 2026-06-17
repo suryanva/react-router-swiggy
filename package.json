@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "parcel index.html",
+    "start": "node server.mjs",
     "build": "parcel build index.html",
-    "postbuild": "cp _headers dist/_headers",
     "test": "jest",
     "watch-test": "jest --watch"
   },
@@ -14,6 +13,7 @@
   "dependencies": {
     "@babel/preset-react": "^7.24.7",
     "@reduxjs/toolkit": "^2.2.6",
+    "express": "^4.21.0",
     "parcel": "^2.8.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

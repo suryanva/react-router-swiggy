@@ -1,5 +1,6 @@
 import express from "express";
 import path from "path";
+import fs from "fs";
 import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -8,6 +9,11 @@ const PORT = process.env.PORT || 3000;
 
 app.use((_req, res, next) => {
   res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+  next();
+});
+
+app.use((req, _res, next) => {
+  console.log(`${req.method} ${req.url}`);
   next();
 });
 
@@ -25,10 +31,27 @@ app.get("/api/proxy", async (req, res) => {
   }
 });
 
+app.get("/api/check", (_req, res) => {
+  const distPath = path.join(__dirname, "dist");
+  const files = fs.existsSync(distPath) ? fs.readdirSync(distPath) : [];
+  res.json({
+    cwd: process.cwd(),
+    dirname: __dirname,
+    distExists: fs.existsSync(distPath),
+    distFiles: files,
+    nodeVersion: process.version,
+  });
+});
+
 app.use(express.static(path.join(__dirname, "dist")));
 
 app.get("*", (_req, res) => {
-  res.sendFile(path.join(__dirname, "dist", "index.html"));
+  const filePath = path.join(__dirname, "dist", "index.html");
+  if (fs.existsSync(filePath)) {
+    res.sendFile(filePath);
+  } else {
+    res.status(500).send(`dist/index.html not found at ${filePath}`);
+  }
 });
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
